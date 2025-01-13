@@ -26,7 +26,7 @@ export const getAllCartItems = async(id) =>{
    
     
     try {
-        const res = await fetch(`https://e-com-advance.vercel.app/api/cart/all-cart-items?id=${id}`,{
+        const res = await fetch(`https://shoppingtoday-by-joy.vercel.app/api/cart/all-cart-items?id=${id}`,{
             method:'GET',
             headers:{
                 Authorization: `Bearer ${Cookies.get('token')}`
