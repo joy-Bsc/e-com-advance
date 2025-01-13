@@ -9,6 +9,8 @@ import { useContext, useEffect, useState, Suspense } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+export const dynamic = "force-dynamic";
+
 export default function Checkout() {
   const router = useRouter();
   const params = useSearchParams();
@@ -135,14 +137,13 @@ export default function Checkout() {
   }
 
   console.log(checkoutFormData);
-  useEffect(()=>{
-    if(orderSuccess){
-      setTimeout(()=>{
+  useEffect(() => {
+    if (orderSuccess) {
+      setTimeout(() => {
         router.push("/orders");
-      },2500)
+      }, 2500);
     }
-
-  },[orderSuccess])
+  }, [orderSuccess]);
 
   if (orderSuccess) {
     return (
@@ -153,9 +154,9 @@ export default function Checkout() {
               <div className="px-4 py-6 sm:px-8 sm:py-10 flex flex-col gap-5">
                 <h1 className="font-bold text-lg">
                   {" "}
-                  Your payment is successful you will be redirecting to orders page in 2 sec
+                  Your payment is successful you will be redirecting to orders
+                  page in 2 sec
                 </h1>
-                
               </div>
             </div>
           </div>
@@ -259,7 +260,9 @@ export default function Checkout() {
                       <span className="font-semibold">{address.address}</span>
                       <span className="font-semibold">{address.city}</span>
                       <span className="font-semibold">{address.country}</span>
-                      <span className="font-semibold">{address.postalCode}</span>
+                      <span className="font-semibold">
+                        {address.postalCode}
+                      </span>
                       <button className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
                         {address._id === selectedAddress
                           ? "Selected Address"
