@@ -24,7 +24,7 @@ export const addNewProduct = async (formData) => {
 
 export const getAllAdminProducts = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/admin/all-products', {
+        const response = await fetch('https://e-com-advance.vercel.app/api/admin/all-products', {
             method: 'GET',
             cache : 'no-cache',
             
@@ -72,7 +72,7 @@ export const deleteProduct = async (id) => {
 
 export const productByCategory = async (id) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/admin/product-by-category?id=${id}`, {
+        const response = await fetch(`https://e-com-advance.vercel.app/api/admin/product-by-category?id=${id}`, {
             method: 'GET',
             cache : 'no-cache',
             
@@ -87,7 +87,7 @@ export const productByCategory = async (id) => {
 
 export const productById = async (id) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/admin/product-by-id?id=${id}`, {
+        const response = await fetch(`https://e-com-advance.vercel.app/api/admin/product-by-id?id=${id}`, {
             method: 'GET',
             cache : 'no-cache',
             
