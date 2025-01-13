@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const dynamic = "force-dynamic";
 
-export default function Checkout() {
+function CheckoutComponent() {
   const router = useRouter();
   const params = useSearchParams();
   const publishableKey =
@@ -205,131 +205,135 @@ export default function Checkout() {
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="text-black">
-        <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
-          <div className="px-4 pt-8">
-            <p className="font-medium text-xl">Cart Summary</p>
-            <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-5">
-              {cartItems && cartItems.length ? (
-                cartItems.map((item) => (
-                  <div
-                    className="flex flex-col rounded-lg bg-white sm:flex-row"
-                    key={item._id}
-                  >
-                    <img
-                      src={item?.productDetails?.imageUrl}
-                      alt="Cart Item"
-                      className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-                    />
-                    <div className="flex w-full flex-col px-4 py-4">
-                      <span className="font-bold">
-                        {item?.productDetails?.name}
-                      </span>
-                      <span className="font-semibold">
-                        {item?.productDetails?.price}
-                      </span>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div>your cart is empty</div>
-              )}
-            </div>
-          </div>
-          <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
-            <p className="text-xl font-medium">Shipping Address details</p>
-            <p className="text-gray-400 font-bold">
-              Complete your order by selecting address below
-            </p>
-            <div className="w-full mt-6 mr-0 mb-0 ml-0 space-y-6">
-              {addresses && addresses.length ? (
-                addresses.map((address) => (
-                  <div
-                    className="flex flex-col rounded-lg bg-white sm:flex-row"
-                    key={address._id}
-                  >
-                    <div
-                      onClick={() => handleSelectedAddress(address)}
-                      key={address._id}
-                      className={`border p-6 ${
-                        address._id === selectedAddress ? "border-red-900" : ""
-                      }`}
-                    >
-                      <span className="font-bold">{address.fullName}</span>
-                      <span className="font-semibold">{address.address}</span>
-                      <span className="font-semibold">{address.city}</span>
-                      <span className="font-semibold">{address.country}</span>
-                      <span className="font-semibold">
-                        {address.postalCode}
-                      </span>
-                      <button className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
-                        {address._id === selectedAddress
-                          ? "Selected Address"
-                          : "Select Address"}
-                      </button>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div>No address found</div>
-              )}
-            </div>
-            <button
-              onClick={() => router.push("/account")}
-              className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
-            >
-              Add New Address
-            </button>
-            <div className="mt-6 border-t border-b py-2">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium">SubTotal</p>
-                <p className="text-lg font-bold text-gray-900">
-                  ${" "}
-                  {cartItems && cartItems.length
-                    ? cartItems.reduce(
-                        (total, item) => item.productDetails.price + total,
-                        0
-                      )
-                    : 0}
-                </p>
-              </div>
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium">Shipping</p>
-                <p className="text-lg font-bold text-gray-900">Free</p>
-              </div>
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium">Total</p>
-                <p className="text-lg font-bold text-gray-900">
-                  ${" "}
-                  {cartItems && cartItems.length
-                    ? cartItems.reduce(
-                        (total, item) => item.productDetails.price + total,
-                        0
-                      )
-                    : 0}
-                </p>
-              </div>
-              <div className="pb-10">
-                <button
-                  onClick={handleCheckout}
-                  disabled={
-                    !cartItems ||
-                    cartItems.length === 0 ||
-                    !checkoutFormData.shippingAddress ||
-                    Object.values(checkoutFormData.shippingAddress).some(
-                      (value) => !value
-                    )
-                  }
-                  className="disabled:opacity-50 mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide w-full"
+    <div className="text-black">
+      <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
+        <div className="px-4 pt-8">
+          <p className="font-medium text-xl">Cart Summary</p>
+          <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-5">
+            {cartItems && cartItems.length ? (
+              cartItems.map((item) => (
+                <div
+                  className="flex flex-col rounded-lg bg-white sm:flex-row"
+                  key={item._id}
                 >
-                  Checkout
-                </button>
-              </div>
+                  <img
+                    src={item?.productDetails?.imageUrl}
+                    alt="Cart Item"
+                    className="m-2 h-24 w-28 rounded-md border object-cover object-center"
+                  />
+                  <div className="flex w-full flex-col px-4 py-4">
+                    <span className="font-bold">
+                      {item?.productDetails?.name}
+                    </span>
+                    <span className="font-semibold">
+                      {item?.productDetails?.price}
+                    </span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>your cart is empty</div>
+            )}
+          </div>
+        </div>
+        <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+          <p className="text-xl font-medium">Shipping Address details</p>
+          <p className="text-gray-400 font-bold">
+            Complete your order by selecting address below
+          </p>
+          <div className="w-full mt-6 mr-0 mb-0 ml-0 space-y-6">
+            {addresses && addresses.length ? (
+              addresses.map((address) => (
+                <div
+                  className="flex flex-col rounded-lg bg-white sm:flex-row"
+                  key={address._id}
+                >
+                  <div
+                    onClick={() => handleSelectedAddress(address)}
+                    key={address._id}
+                    className={`border p-6 ${
+                      address._id === selectedAddress ? "border-red-900" : ""
+                    }`}
+                  >
+                    <span className="font-bold">{address.fullName}</span>
+                    <span className="font-semibold">{address.address}</span>
+                    <span className="font-semibold">{address.city}</span>
+                    <span className="font-semibold">{address.country}</span>
+                    <span className="font-semibold">{address.postalCode}</span>
+                    <button className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
+                      {address._id === selectedAddress
+                        ? "Selected Address"
+                        : "Select Address"}
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>No address found</div>
+            )}
+          </div>
+          <button
+            onClick={() => router.push("/account")}
+            className="mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+          >
+            Add New Address
+          </button>
+          <div className="mt-6 border-t border-b py-2">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">SubTotal</p>
+              <p className="text-lg font-bold text-gray-900">
+                ${" "}
+                {cartItems && cartItems.length
+                  ? cartItems.reduce(
+                      (total, item) => item.productDetails.price + total,
+                      0
+                    )
+                  : 0}
+              </p>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">Shipping</p>
+              <p className="text-lg font-bold text-gray-900">Free</p>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">Total</p>
+              <p className="text-lg font-bold text-gray-900">
+                ${" "}
+                {cartItems && cartItems.length
+                  ? cartItems.reduce(
+                      (total, item) => item.productDetails.price + total,
+                      0
+                    )
+                  : 0}
+              </p>
+            </div>
+            <div className="pb-10">
+              <button
+                onClick={handleCheckout}
+                disabled={
+                  !cartItems ||
+                  cartItems.length === 0 ||
+                  !checkoutFormData.shippingAddress ||
+                  Object.values(checkoutFormData.shippingAddress).some(
+                    (value) => !value
+                  )
+                }
+                className="disabled:opacity-50 mt-5 mr-5 inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide w-full"
+              >
+                Checkout
+              </button>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+export default function Checkout() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CheckoutComponent />
     </Suspense>
   );
 }
